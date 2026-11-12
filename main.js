@@ -1,16 +1,5 @@
 const cfg = SITE_CONFIG;
 
-const grid = document.getElementById("featuresGrid");
-const form = document.getElementById("bookingForm");
-const successBlock = document.getElementById("formSuccess");
-const failBlock = document.getElementById("formFail");
-const submitBtn = form.querySelector(".form__submit");
-const burgerBtn = document.getElementById("burgerBtn");
-const nav = document.getElementById("siteNav");
-const dateInInput = form.querySelector('input[name="dateIn"]');
-const dateOutInput = form.querySelector('input[name="dateOut"]');
-const guestsSelect = form.querySelector('select[name="guests"]');
-
 function applyTheme() {
   const root = document.documentElement.style;
   root.setProperty("--color-primary", cfg.theme.primary);
@@ -19,203 +8,191 @@ function applyTheme() {
   root.setProperty("--color-accent-hover", cfg.theme.accentHover);
 }
 
-function fillContacts() {
+function fillChrome() {
   const navPhone = document.getElementById("navPhone");
   navPhone.textContent = cfg.phoneDisplay;
   navPhone.href = cfg.phoneHref;
 
   document.getElementById("footerName").textContent = cfg.name;
 
-  const mapLink = `https://yandex.ru/maps/?text=${encodeURIComponent(cfg.mapQuery)}`;
+  const howtoPhone = document.getElementById("howtoPhone");
+  howtoPhone.textContent = cfg.phoneDisplay;
+  howtoPhone.href = cfg.phoneHref;
+
+  document.getElementById("messengerBtn").href = cfg.messengerLink;
+
   document.getElementById("mapFrame").src =
     `https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(cfg.mapQuery)}&z=14`;
+}
 
+function renderCatalog() {
+  const grid = document.getElementById("catalogGrid");
+  grid.innerHTML = cfg.catalog.map(item => `
+    <article class="catalog-card" id="${item.id}">
+      <figure class="catalog-card__media">
+        <img src="${item.img}" alt="${item.imgAlt}" width="1200" height="900" loading="lazy">
+      </figure>
+      <div class="catalog-card__body">
+        <div class="catalog-card__head">
+          <h3 class="catalog-card__title">${item.title}</h3>
+          <span class="catalog-card__capacity">${item.capacity}</span>
+        </div>
+        <ul class="catalog-card__features">
+          ${item.features.map(feature => `<li>${feature}</li>`).join("")}
+        </ul>
+        <p class="catalog-card__desc">${item.description}</p>
+        <div class="catalog-card__prices">
+          ${item.priceRows.map(row => `
+            <div class="price-row">
+              <span class="price-row__label">${row.label}</span>
+              <span class="price-row__dots"></span>
+              <span class="price-row__value">${row.value}</span>
+            </div>
+          `).join("")}
+        </div>
+        <p class="catalog-card__note">${item.priceNote}</p>
+        <div class="catalog-card__actions">
+          <a class="btn btn--primary btn--small" href="${cfg.phoneHref}">Позвонить</a>
+          <a class="btn btn--outline btn--small" href="${cfg.messengerLink}" target="_blank" rel="noopener">${cfg.messengerLabel}</a>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderGallery() {
+  const grid = document.getElementById("galleryGrid");
+  grid.innerHTML = cfg.gallery.map((photo, index) => `
+    <figure class="gallery__item" data-index="${index}" tabindex="0" role="button" aria-label="Открыть фото: ${photo.alt}">
+      <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+    </figure>
+  `).join("");
+
+  grid.addEventListener("click", event => {
+    const item = event.target.closest(".gallery__item");
+    if (item) openLightbox(Number(item.dataset.index));
+  });
+
+  grid.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const item = event.target.closest(".gallery__item");
+    if (item) {
+      event.preventDefault();
+      openLightbox(Number(item.dataset.index));
+    }
+  });
+}
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxCaption = document.getElementById("lightboxCaption");
+const lightboxCounter = document.getElementById("lightboxCounter");
+let slideIndex = 0;
+
+function showSlide(index) {
+  const count = cfg.gallery.length;
+  slideIndex = (index + count) % count;
+  const photo = cfg.gallery[slideIndex];
+  lightboxImg.src = photo.src;
+  lightboxImg.alt = photo.alt;
+  lightboxCaption.textContent = photo.alt;
+  lightboxCounter.textContent = `${slideIndex + 1} / ${count}`;
+}
+
+function openLightbox(index) {
+  showSlide(index);
+  lightbox.hidden = false;
+  document.body.classList.add("no-scroll");
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.classList.remove("no-scroll");
+}
+
+document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+document.getElementById("lightboxPrev").addEventListener("click", () => showSlide(slideIndex - 1));
+document.getElementById("lightboxNext").addEventListener("click", () => showSlide(slideIndex + 1));
+lightbox.addEventListener("click", event => {
+  if (event.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", event => {
+  if (lightbox.hidden) return;
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") showSlide(slideIndex - 1);
+  if (event.key === "ArrowRight") showSlide(slideIndex + 1);
+});
+
+function renderPromos() {
+  const grid = document.getElementById("promosGrid");
+  grid.innerHTML = cfg.promos.map(promo => `
+    <article class="promo-card">
+      <span class="promo-card__badge">${promo.badge}</span>
+      <h3 class="promo-card__title">${promo.title}</h3>
+      <p class="promo-card__text">${promo.text}</p>
+    </article>
+  `).join("");
+}
+
+function renderReviews() {
+  const grid = document.getElementById("reviewsGrid");
+  grid.innerHTML = cfg.reviews.map(review => `
+    <article class="review-card">
+      <div class="review-card__head">
+        <span class="review-card__avatar">${review.initials}</span>
+        <span class="review-card__meta">
+          <span class="review-card__name">${review.name}</span>
+          <span class="review-card__date">${review.date}</span>
+        </span>
+      </div>
+      <p class="review-card__text">${review.text}</p>
+      <span class="review-card__tag">Ждёт наполнения</span>
+    </article>
+  `).join("");
+}
+
+function renderFaq() {
+  const list = document.getElementById("faqList");
+  list.innerHTML = cfg.faq.map(item => `
+    <details class="faq-item">
+      <summary>${item.question}</summary>
+      <p class="faq-item__answer">${item.answer}</p>
+    </details>
+  `).join("");
+}
+
+function renderSteps() {
+  const grid = document.getElementById("stepsGrid");
+  grid.innerHTML = cfg.steps.map(step => `
+    <article class="step-card">
+      <span class="step-card__num">${step.num}</span>
+      <h3 class="step-card__title">${step.title}</h3>
+      <p class="step-card__text">${step.text}</p>
+    </article>
+  `).join("");
+}
+
+function fillContacts() {
   const list = document.getElementById("contactsList");
   list.innerHTML = cfg.contacts.map(item => {
     const inner = item.href
       ? `<a class="contacts__value" href="${item.href}"${item.external ? ' target="_blank" rel="noopener"' : ""}>${item.value}</a>`
       : `<span class="contacts__value">${item.value}</span>`;
     return `
-      <li class="contacts__item">
-        <span class="contacts__label">${item.label}</span>
+      <li class="contacts-item">
+        <span class="contacts-label">${item.label}</span>
         ${inner}
       </li>
     `;
   }).join("");
 }
 
-function fillBookingPoints() {
-  const list = document.getElementById("bookingPoints");
-  list.innerHTML = cfg.bookingPoints.map(point => `<li>${point}</li>`).join("");
-}
-
-function renderFeatures() {
-  const buttonLabel = cfg.bookButtonLabel || "Забронировать";
-  grid.innerHTML = cfg.features.map(feature => `
-    <article class="service-card">
-      <h3 class="service-card__title">${feature.title}</h3>
-      <p class="service-card__desc">${feature.description}</p>
-      <div class="service-card__footer">
-        <button type="button" class="btn btn--primary service-card__book">${buttonLabel}</button>
-      </div>
-    </article>
-  `).join("");
-}
-
-function fillGuests() {
-  cfg.guestOptions.forEach(option => {
-    const optionElement = document.createElement("option");
-    optionElement.value = option;
-    optionElement.textContent = option;
-    guestsSelect.appendChild(optionElement);
-  });
-}
-
-function showFieldError(fieldName, message) {
-  const errorElement = form.querySelector(`[data-error-for="${fieldName}"]`);
-  const inputElement = form.querySelector(`[name="${fieldName}"]`);
-  if (errorElement) errorElement.textContent = message;
-  if (inputElement) inputElement.classList.toggle("form__input--invalid", Boolean(message));
-}
-
-function validateForm(data) {
-  let isValid = true;
-
-  if (data.name.trim().length < 2) {
-    showFieldError("name", "Введите имя (минимум 2 символа)");
-    isValid = false;
-  } else {
-    showFieldError("name", "");
-  }
-
-  const phoneDigits = data.phone.replace(/\D/g, "");
-  if (phoneDigits.length < 10) {
-    showFieldError("phone", "Введите телефон полностью, например +7 (900) 123-45-67");
-    isValid = false;
-  } else {
-    showFieldError("phone", "");
-  }
-
-  if (!data.dateIn) {
-    showFieldError("dateIn", "Выберите дату заезда");
-    isValid = false;
-  } else {
-    showFieldError("dateIn", "");
-  }
-
-  if (data.dateOut && data.dateIn && data.dateOut < data.dateIn) {
-    showFieldError("dateOut", "Выезд не может быть раньше заезда");
-    isValid = false;
-  } else {
-    showFieldError("dateOut", "");
-  }
-
-  return isValid;
-}
-
-function saveRequest(request) {
-  const requests = JSON.parse(localStorage.getItem("teremok_requests") || "[]");
-  requests.push(request);
-  localStorage.setItem("teremok_requests", JSON.stringify(requests));
-}
-
-function onFeatureBookClick(event) {
-  const button = event.target.closest(".service-card__book");
-  if (!button) return;
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-async function onFormSubmit(event) {
-  event.preventDefault();
-
-  const formData = new FormData(form);
-  const data = {
-    name: formData.get("name") || "",
-    phone: formData.get("phone") || "",
-    dateIn: formData.get("dateIn") || "",
-    dateOut: formData.get("dateOut") || "",
-    guests: formData.get("guests") || "",
-    comment: formData.get("comment") || ""
-  };
-
-  if (formData.get("_gotcha")) {
-    form.reset();
-    return;
-  }
-
-  if (!validateForm(data)) return;
-
-  saveRequest({
-    ...data,
-    createdAt: new Date().toISOString()
-  });
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Отправляем…";
-  successBlock.hidden = true;
-  failBlock.hidden = true;
-
-  let sent = false;
-  try {
-    const response = await fetch(cfg.formEndpoint, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: formData
-    });
-    sent = response.ok;
-  } catch {
-    sent = false;
-  }
-
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Отправить заявку";
-
-  if (sent) {
-    form.reset();
-    successBlock.hidden = false;
-    successBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    setTimeout(() => { successBlock.hidden = true; }, 6000);
-  } else {
-    failBlock.hidden = false;
-    failBlock.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
-}
-
-function onBurgerClick() {
-  const isOpen = nav.classList.toggle("nav--open");
-  burgerBtn.classList.toggle("burger--open", isOpen);
-  burgerBtn.setAttribute("aria-expanded", String(isOpen));
-}
-
-function onNavLinkClick() {
-  nav.classList.remove("nav--open");
-  burgerBtn.classList.remove("burger--open");
-  burgerBtn.setAttribute("aria-expanded", "false");
-}
-
-function setMinDates() {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const dd = String(today.getDate()).padStart(2, "0");
-  dateInInput.min = `${yyyy}-${mm}-${dd}`;
-
-  dateInInput.addEventListener("change", () => {
-    dateOutInput.min = dateInInput.value || dateInInput.min;
-    if (dateOutInput.value && dateOutInput.value < dateOutInput.min) {
-      dateOutInput.value = "";
-    }
-  });
-}
-
 applyTheme();
+fillChrome();
+renderCatalog();
+renderGallery();
+renderPromos();
+renderReviews();
+renderFaq();
+renderSteps();
 fillContacts();
-fillBookingPoints();
-renderFeatures();
-fillGuests();
-setMinDates();
-
-grid.addEventListener("click", onFeatureBookClick);
-form.addEventListener("submit", onFormSubmit);
-burgerBtn.addEventListener("click", onBurgerClick);
-nav.querySelectorAll(".nav__link").forEach(link => link.addEventListener("click", onNavLinkClick));

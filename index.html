@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- ============================================================
-       ДАННЫЕ КЛИЕНТА ДЛЯ ПОИСКОВИКОВ — ПРИ НОВОМ САЙТЕ МЕНЯТЬ ЗДЕСЬ
-       (остальные данные клиента — в файле config.js)
-       ============================================================ -->
+  <!-- ДАННЫЕ КЛИЕНТА ДЛЯ ПОИСКОВИКОВ — ПРИ НОВОМ САЙТЕ МЕНЯТЬ ЗДЕСЬ (остальное — в config.js) -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Гостевой дом «Теремок» — отдых у пруда под Красноуфимском</title>
-  <meta name="description" content="Гостевой дом «Теремок» в д. Подгорная: треугольный дом с панорамными окнами на берегу пруда, мангальная зона и терраса. 10 минут от Красноуфимска. Бронь: +7 (963) 052-92-28.">
-  <!-- После публикации заменить canonical и og:url на реальный адрес сайта -->
+  <meta name="viewport" content="width=1200">
+  <title>Гостевой дом «Теремок» — дом с баней и купелью у пруда под Красноуфимском</title>
+  <meta name="description" content="Гостевой дом «Теремок» в д. Подгорная: треугольный дом с панорамными окнами на берегу пруда, баня-бочка, купель с горячей водой и мангальная зона. 10 минут от Красноуфимска. Бронь: +7 (963) 052-92-28.">
   <link rel="canonical" href="https://andreq409.github.io/teremok/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%232e5f47'/%3E%3Cpath%20d='M14%2050%2032%2014%2050%2050Z'%20fill='none'%20stroke='%23fff'%20stroke-width='4'%20stroke-linejoin='round'/%3E%3Crect%20x='27'%20y='36'%20width='10'%20height='14'%20fill='%23fff'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Гостевой дом «Теремок»">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:title" content="Гостевой дом «Теремок» — отдых у пруда под Красноуфимском">
-  <meta property="og:description" content="Треугольный дом с панорамными окнами на берегу пруда: мангальная зона, терраса, спокойный отдых.">
+  <meta property="og:title" content="Гостевой дом «Теремок» — дом с баней и купелью у пруда под Красноуфимском">
+  <meta property="og:description" content="Треугольный дом с панорамными окнами на берегу пруда: баня-бочка, купель с горячей водой, мангальная зона и терраса.">
   <meta property="og:image" content="https://andreq409.github.io/teremok/img/hero.jpg">
   <meta property="og:url" content="https://andreq409.github.io/teremok/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Гостевой дом «Теремок» — отдых у пруда под Красноуфимском">
-  <meta name="twitter:description" content="Треугольный дом с панорамными окнами на берегу пруда: мангальная зона, терраса, спокойный отдых.">
+  <meta name="twitter:title" content="Гостевой дом «Теремок» — дом с баней и купелью у пруда под Красноуфимском">
+  <meta name="twitter:description" content="Треугольный дом с панорамными окнами на берегу пруда: баня-бочка, купель с горячей водой, мангальная зона и терраса.">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; connect-src https://formspree.io; frame-src https://yandex.ru; form-action https://formspree.io; base-uri 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; frame-src https://yandex.ru; base-uri 'none'; upgrade-insecure-requests">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "name": "Гостевой дом «Теремок»",
-    "description": "Треугольный дом с панорамными окнами на берегу пруда в д. Подгорная, 10 минут от Красноуфимска. Мангальная зона и терраса, спокойный отдых.",
+    "description": "Треугольный дом с панорамными окнами на берегу пруда в д. Подгорная, 10 минут от Красноуфимска. Баня-бочка, купель с горячей водой, мангальная зона и терраса.",
     "url": "https://andreq409.github.io/teremok/",
     "telephone": "+7 (963) 052-92-28",
     "priceRange": "₽₽",
@@ -62,17 +58,14 @@
         <span class="logo__text">Гостевой дом&nbsp;«Теремок»</span>
       </a>
 
-      <nav class="nav" id="siteNav">
-        <a class="nav__link" href="#about">Дом</a>
-        <a class="nav__link" href="#features">Условия</a>
-        <a class="nav__link" href="#booking">Бронирование</a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a class="nav__link" href="#about">О доме</a>
+        <a class="nav__link" href="#catalog">Домики и бани</a>
+        <a class="nav__link" href="#gallery">Галерея</a>
+        <a class="nav__link" href="#faq">Вопросы</a>
         <a class="nav__link" href="#contacts">Контакты</a>
         <a class="nav__link nav__link--phone" id="navPhone" href="#"></a>
       </nav>
-
-      <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
@@ -80,31 +73,43 @@
     <section class="hero" id="hero">
       <div class="container hero__inner">
         <div class="hero__content">
-          <h1 class="hero__title">Терем у пруда с панорамными окнами</h1>
+          <p class="hero__kicker">Гостевой дом · баня · купель</p>
+          <h1 class="hero__title">Тёплый терем у пруда<br><em>в 10 минутах от Красноуфимска</em></h1>
           <p class="hero__subtitle">
-            Новый треугольный дом с большими панорамными окнами в деревне Подгорная —
-            10 минут от Красноуфимска. Терраса, мангальная зона и самый тихий берег
-            для отдыха с близкими.
+            Новый треугольный дом с панорамными окнами на самом тихом берегу.
+            Баня-бочка, купель с горячей водой и мангальная зона — приезжайте
+            отдохнуть с близкими.
           </p>
           <div class="hero__actions">
-            <a href="#booking" class="btn btn--primary">Забронировать</a>
-            <a href="#about" class="btn btn--ghost">Посмотреть дом</a>
+            <a href="#catalog" class="btn btn--primary">Смотреть домики и бани</a>
+            <a href="#howto" class="btn btn--ghost">Как забронировать</a>
           </div>
           <ul class="hero__features">
             <li class="hero__feature">Панорамные окна на пруд</li>
-            <li class="hero__feature">Мангальная зона и терраса</li>
+            <li class="hero__feature">Баня-бочка и купель круглый год</li>
             <li class="hero__feature">Весь дом только для вас</li>
           </ul>
         </div>
-        <figure class="hero__media">
-          <img src="img/hero.jpg" alt="Треугольный дом «Теремок» с гирляндами и тёплым светом окон вечером" width="1920" height="1266">
-        </figure>
+        <div class="hero__chips">
+          <div class="hero-chip">
+            <span class="hero-chip__label">Как добраться</span>
+            <span class="hero-chip__value">10 минут от Красноуфимска</span>
+          </div>
+          <div class="hero-chip">
+            <span class="hero-chip__label">Адрес</span>
+            <span class="hero-chip__value">д. Подгорная, ул. Свободы, 44</span>
+          </div>
+          <div class="hero-chip">
+            <span class="hero-chip__label">Заезд · выезд</span>
+            <span class="hero-chip__value">После 14:00 · до 12:00</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="about">
       <div class="container">
-        <h2 class="section__title">Тёплый дом у самого пруда</h2>
+        <h2 class="section__title">Тёплый дом <em>у самого пруда</em></h2>
         <div class="about">
           <div class="about__text">
             <p>
@@ -118,7 +123,7 @@
             </p>
             <ul class="about__bullets">
               <li>Рядом пруд: лебеди и утки</li>
-              <li>Мангальная зона и терраса</li>
+              <li>Баня-бочка и купель на территории</li>
               <li>Все удобства внутри</li>
               <li>10 минут от Красноуфимска</li>
             </ul>
@@ -127,113 +132,67 @@
             <img src="img/house.jpg" alt="Треугольный фасад дома «Теремок» с панорамными окнами и купелью-бассейном, летний день" width="1200" height="1200" loading="lazy">
           </figure>
         </div>
-        <div class="gallery">
-          <figure class="gallery__item">
-            <img src="img/gallery-1.jpg" alt="Дом с панорамными окнами и купелью-бассейном на террасе" width="1600" height="1200" loading="lazy">
-          </figure>
-          <figure class="gallery__item">
-            <img src="img/gallery-2.jpg" alt="Терраса с баней-бочкой и видом на озеро" width="1600" height="1200" loading="lazy">
-          </figure>
-          <figure class="gallery__item">
-            <img src="img/gallery-3.jpg" alt="Кухня-гостиная с деревянной отделкой" width="1600" height="1200" loading="lazy">
-          </figure>
-          <figure class="gallery__item">
-            <img src="img/gallery-4.jpg" alt="Спальное место на втором уровне под треугольным окном" width="1600" height="1200" loading="lazy">
-          </figure>
-          <figure class="gallery__item">
-            <img src="img/gallery-5.jpg" alt="Мангальная зона под навесом" width="1600" height="1200" loading="lazy">
-          </figure>
-          <figure class="gallery__item">
-            <img src="img/gallery-6.jpg" alt="Горячая купель на террасе зимой" width="1600" height="1200" loading="lazy">
-          </figure>
-        </div>
       </div>
     </section>
 
-    <section class="section section--tinted" id="features">
+    <section class="section section--tinted" id="catalog">
       <div class="container">
-        <h2 class="section__title">Что в вашем распоряжении</h2>
-        <p class="section__subtitle">Цены на даты и заезды уточняйте при бронировании по телефону.</p>
-        <div class="services" id="featuresGrid"></div>
+        <h2 class="section__title">Домики и бани <em>в вашем распоряжении</em></h2>
+        <p class="section__subtitle">Цены на даты и заезды уточняйте при бронировании — подскажем свободные даты и всё подготовим к приезду.</p>
+        <!-- ЗАГЛУШКИ: цены, вместимость и состав — согласовать с владельцем -->
+        <div class="catalog-grid" id="catalogGrid"></div>
       </div>
     </section>
 
-    <section class="section" id="booking">
-      <div class="container booking">
-        <div class="booking__info">
-          <h2 class="section__title">Бронирование</h2>
-          <p class="booking__text">
-            Оставьте заявку — перезвоним, ответим на вопросы и подтвердим даты.
-            Бронь можно оформить и по телефону:
-            <a href="tel:+79630529228" class="booking__phone">+7 (963) 052-92-28</a>.
-          </p>
-          <ul class="booking__list" id="bookingPoints"></ul>
+    <section class="section" id="gallery">
+      <div class="container">
+        <h2 class="section__title">Атмосфера <em>дома и территории</em></h2>
+        <p class="section__subtitle">Нажмите на фото, чтобы открыть его на весь экран.</p>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="promos">
+      <div class="container">
+        <h2 class="section__title">Специальные <em>предложения</em></h2>
+        <p class="section__subtitle">Условия уточняйте при бронировании по телефону или в MAX.</p>
+        <!-- ЗАГЛУШКИ: акции согласовать с владельцем -->
+        <div class="promo-grid" id="promosGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <h2 class="section__title">Отзывы <em>гостей</em></h2>
+        <!-- ЗАГЛУШКИ: заменить реальными отзывами после согласования с владельцем -->
+        <div class="review-grid" id="reviewsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="faq">
+      <div class="container">
+        <h2 class="section__title">Частые вопросы <em>гостей</em></h2>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    <section class="section section--dark howto" id="howto">
+      <div class="container">
+        <h2 class="section__title">Как <em>забронировать</em></h2>
+        <p class="section__subtitle">Бронь оформляется по телефону или в MAX — назовите даты, остальное сделаем мы.</p>
+        <div class="steps-grid" id="stepsGrid"></div>
+        <div class="howto__cta">
+          <a class="howto__phone" id="howtoPhone" href="#"></a>
+          <a class="btn btn--primary" id="messengerBtn" href="#" target="_blank" rel="noopener">Написать в MAX</a>
         </div>
-
-        <form class="form" id="bookingForm" novalidate>
-          <div class="form__row">
-            <label class="form__field">
-              <span class="form__label">Ваше имя *</span>
-              <input type="text" name="name" class="form__input" placeholder="Иван" autocomplete="name" required>
-              <span class="form__error" data-error-for="name"></span>
-            </label>
-            <label class="form__field">
-              <span class="form__label">Телефон *</span>
-              <input type="tel" name="phone" class="form__input" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
-              <span class="form__error" data-error-for="phone"></span>
-            </label>
-          </div>
-
-          <div class="form__row">
-            <label class="form__field">
-              <span class="form__label">Дата заезда *</span>
-              <input type="date" name="dateIn" class="form__input" required>
-              <span class="form__error" data-error-for="dateIn"></span>
-            </label>
-            <label class="form__field">
-              <span class="form__label">Дата выезда</span>
-              <input type="date" name="dateOut" class="form__input">
-              <span class="form__error" data-error-for="dateOut"></span>
-            </label>
-          </div>
-
-          <label class="form__field">
-            <span class="form__label">Гостей</span>
-            <select name="guests" class="form__input form__input--select">
-              <option value="">Выберите</option>
-            </select>
-            <span class="form__error" data-error-for="guests"></span>
-          </label>
-
-          <label class="form__field">
-            <span class="form__label">Комментарий</span>
-            <textarea name="comment" class="form__input form__input--textarea" rows="3"
-              placeholder="Например: приедем вечером в пятницу, хотим мангал"></textarea>
-          </label>
-
-          <button type="submit" class="btn btn--primary form__submit">Отправить заявку</button>
-          <p class="form__note">Отправляя заявку, вы соглашаетесь на обработку персональных данных.</p>
-
-          <div class="form__success" id="formSuccess" hidden>
-            <strong>Заявка отправлена!</strong>
-            Перезвоним вам, чтобы подтвердить бронь.
-          </div>
-
-          <div class="form__fail" id="formFail" hidden>
-            <strong>Не получилось отправить заявку.</strong>
-            Позвоните нам: <a href="tel:+79630529228">+7 (963) 052-92-28</a>
-          </div>
-
-          <input type="text" name="_gotcha" class="form__gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
-        </form>
       </div>
     </section>
 
     <section class="section" id="contacts">
       <div class="container">
-        <h2 class="section__title">Контакты</h2>
-        <div class="contacts">
-          <ul class="contacts__list" id="contactsList"></ul>
+        <h2 class="section__title">Контакты <em>и как нас найти</em></h2>
+        <div class="contacts-grid">
+          <ul class="contacts-list" id="contactsList"></ul>
           <div class="map">
             <iframe class="map__frame" id="mapFrame" title="Карта — как нас найти" loading="lazy" allowfullscreen></iframe>
           </div>
@@ -245,9 +204,18 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <span class="site-footer__name" id="footerName">Гостевой дом «Теремок»</span>
-      <span class="site-footer__copy">© 2026. Демо-сайт: гостевой дом «Теремок», д. Подгорная.</span>
+      <span class="site-footer__copy">© 2026. Гостевой дом «Теремок», д. Подгорная, ул. Свободы, 44.</span>
     </div>
   </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <span class="lightbox__counter" id="lightboxCounter"></span>
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Закрыть просмотр">×</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" id="lightboxPrev" type="button" aria-label="Предыдущее фото">‹</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+    <button class="lightbox__arrow lightbox__arrow--next" id="lightboxNext" type="button" aria-label="Следующее фото">›</button>
+    <div class="lightbox__caption" id="lightboxCaption"></div>
+  </div>
 
   <script src="config.js"></script>
   <script src="main.js"></script>
