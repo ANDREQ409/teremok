@@ -1,0 +1,65 @@
+var OWNER_EMAIL = 'teremok.zayavki@gmail.com';
+var SHEET_NAME = 'Заявки';
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var name = String(data.name || '').trim();
+    var phone = String(data.phone || '').trim();
+    if (!name || !phone) {
+      return reply({ ok: false, error: 'Укажите имя и телефон' });
+    }
+    var checkin = String(data.checkin || '').trim();
+    var checkout = String(data.checkout || '').trim();
+    var what = String(data.what || '').trim();
+    var comment = String(data.comment || '').trim();
+
+    var lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['№ заявки', 'Принята', 'ФИО', 'Телефон', 'Заезд', 'Выезд', 'Что бронирует', 'Комментарий', 'Статус']);
+    }
+
+    var now = new Date();
+    var mm = ('0' + (now.getMonth() + 1)).slice(-2);
+    var seq = 0;
+    var last = sheet.getLastRow();
+    if (last > 1) {
+      var rows = sheet.getRange(2, 1, last - 1, 2).getValues();
+      for (var i = 0; i < rows.length; i++) {
+        var num = String(rows[i][0]);
+        var d = new Date(rows[i][1]);
+        if (num.indexOf(mm + '-') === 0 && d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth()) {
+          seq++;
+        }
+      }
+    }
+    var number = mm + '-' + ('0' + (seq + 1)).slice(-2);
+
+    sheet.appendRow([number, now, name, phone, checkin, checkout, what, comment, 'Новая']);
+
+    var subject = 'ЗАЯВКА № ' + number + ' — ' + name + ', заезд ' + (checkin || 'не указана');
+    var body =
+      'Новая заявка с сайта Теремок\n\n' +
+      '№ заявки: ' + number + '\n' +
+      'ФИО: ' + name + '\n' +
+      'Телефон: ' + phone + '\n' +
+      'Заезд: ' + (checkin || '—') + '\n' +
+      'Выезд: ' + (checkout || '—') + '\n' +
+      'Бронирует: ' + (what || '—') + '\n' +
+      'Комментарий: ' + (comment || '—') + '\n\n' +
+      'Принята: ' + Utilities.formatDate(now, Session.getScriptTimeZone(), 'dd.MM.yyyy HH:mm');
+    MailApp.sendEmail(OWNER_EMAIL, subject, body);
+
+    return reply({ ok: true, number: number });
+  } catch (err) {
+    return reply({ ok: false, error: String(err && err.message || err) });
+  }
+}
+
+function reply(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}

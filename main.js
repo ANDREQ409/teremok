@@ -187,6 +187,101 @@ function fillContacts() {
   }).join("");
 }
 
+function initBooking() {
+  const form = document.getElementById("bookingForm");
+  const done = document.getElementById("bookingDone");
+  const fail = document.getElementById("bookingFail");
+  const errorBox = document.getElementById("bkError");
+  const failText = document.getElementById("bkFailText");
+  const submitBtn = document.getElementById("bkSubmit");
+  const numberEl = document.getElementById("bkNumber");
+  document.getElementById("bkCallBtn").href = cfg.phoneHref;
+  document.getElementById("bkFailPhone").href = cfg.phoneHref;
+
+  const pad = value => String(value).padStart(2, "0");
+  const nowDate = new Date();
+  const todayStr = `${nowDate.getFullYear()}-${pad(nowDate.getMonth() + 1)}-${pad(nowDate.getDate())}`;
+  const checkinInput = document.getElementById("bkCheckin");
+  const checkoutInput = document.getElementById("bkCheckout");
+  checkinInput.min = todayStr;
+  checkinInput.addEventListener("change", () => {
+    checkoutInput.min = checkinInput.value || todayStr;
+  });
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.hidden = false;
+  }
+
+  function saveLocalCopy(record) {
+    try {
+      const key = "teremok_requests";
+      const list = JSON.parse(localStorage.getItem(key) || "[]");
+      list.push(record);
+      localStorage.setItem(key, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    errorBox.hidden = true;
+
+    if (document.getElementById("bkFax").value) return;
+
+    const name = document.getElementById("bkName").value.trim();
+    const phone = document.getElementById("bkPhone").value.trim();
+    const what = document.getElementById("bkWhat").value;
+    const comment = document.getElementById("bkComment").value.trim();
+
+    if (!name || !phone) {
+      showError("Заполните имя и телефон — без них мы не сможем вам перезвонить.");
+      return;
+    }
+    if (!/^[+()\d\s-]{10,20}$/.test(phone)) {
+      showError("Проверьте телефон: только цифры, скобки, дефисы и плюс.");
+      return;
+    }
+    if (!checkinInput.value) {
+      showError("Выберите дату заезда.");
+      return;
+    }
+
+    const data = {
+      name,
+      phone,
+      checkin: checkinInput.value.split("-").reverse().join("."),
+      checkout: checkoutInput.value ? checkoutInput.value.split("-").reverse().join(".") : "",
+      what,
+      comment
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Отправляем…";
+
+    try {
+      if (!cfg.bookingScriptUrl) throw new Error("Форма ещё не подключена");
+      const response = await fetch(cfg.bookingScriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (!result.ok) throw new Error(result.error || "Заявка не принята");
+      saveLocalCopy({ ...data, number: result.number, savedAt: new Date().toISOString() });
+      numberEl.textContent = "№ " + result.number;
+      form.hidden = true;
+      done.hidden = false;
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Отправить заявку";
+      failText.textContent = cfg.bookingScriptUrl
+        ? "Позвоните нам — оформим бронь по телефону за пару минут. Или попробуйте отправить ещё раз."
+        : "Онлайн-заявки вот-вот заработают. Позвоните нам — оформим бронь по телефону.";
+      fail.hidden = false;
+    }
+  });
+}
+
 applyTheme();
 fillChrome();
 renderCatalog();
@@ -196,3 +291,4 @@ renderReviews();
 renderFaq();
 renderSteps();
 fillContacts();
+initBooking();

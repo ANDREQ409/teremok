@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Гостевой дом «Теремок» — дом с баней и купелью у пруда под Красноуфимском">
   <meta name="twitter:description" content="Треугольный дом с панорамными окнами на берегу пруда: баня-бочка, купель с горячей водой, мангальная зона и терраса.">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; frame-src https://yandex.ru; base-uri 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src https://yandex.ru; base-uri 'none'; upgrade-insecure-requests">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,6 +63,7 @@
         <a class="nav__link" href="#catalog">Домики и бани</a>
         <a class="nav__link" href="#gallery">Галерея</a>
         <a class="nav__link" href="#faq">Вопросы</a>
+        <a class="nav__link" href="#booking">Бронирование</a>
         <a class="nav__link" href="#contacts">Контакты</a>
         <a class="nav__link nav__link--phone" id="navPhone" href="#"></a>
       </nav>
@@ -179,11 +180,78 @@
     <section class="section section--dark howto" id="howto">
       <div class="container">
         <h2 class="section__title">Как <em>забронировать</em></h2>
-        <p class="section__subtitle">Бронь оформляется по телефону или в MAX — назовите даты, остальное сделаем мы.</p>
+        <p class="section__subtitle">Бронь оформляется по телефону, в MAX или заявкой на сайте — назовите даты, остальное сделаем мы.</p>
         <div class="steps-grid" id="stepsGrid"></div>
         <div class="howto__cta">
           <a class="howto__phone" id="howtoPhone" href="#"></a>
           <a class="btn btn--primary" id="messengerBtn" href="#" target="_blank" rel="noopener">Написать в MAX</a>
+          <a class="btn btn--ghost" href="#booking">Оставить заявку на сайте</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="booking">
+      <div class="container">
+        <h2 class="section__title">Оставить заявку <em>онлайн</em></h2>
+        <p class="section__subtitle">Заполните форму — мы перезвоним, подскажем свободные даты и цены. Номер заявки сохраните: по нему мы мгновенно найдём вас при звонке или заезде.</p>
+        <div class="booking">
+          <form class="booking__form" id="bookingForm" novalidate>
+            <div class="booking__row">
+              <label class="booking__field">
+                <span class="booking__label">Имя и фамилия <span class="booking__req">*</span></span>
+                <input class="booking__input" id="bkName" name="name" type="text" placeholder="Например: Русинов Пётр" autocomplete="name">
+              </label>
+              <label class="booking__field">
+                <span class="booking__label">Телефон <span class="booking__req">*</span></span>
+                <input class="booking__input" id="bkPhone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+              </label>
+            </div>
+            <div class="booking__row">
+              <label class="booking__field">
+                <span class="booking__label">Дата заезда <span class="booking__req">*</span></span>
+                <input class="booking__input" id="bkCheckin" name="checkin" type="date">
+              </label>
+              <label class="booking__field">
+                <span class="booking__label">Дата выезда</span>
+                <input class="booking__input" id="bkCheckout" name="checkout" type="date">
+              </label>
+            </div>
+            <div class="booking__row">
+              <label class="booking__field">
+                <span class="booking__label">Что бронируете</span>
+                <select class="booking__input" id="bkWhat" name="what">
+                  <option>Дом целиком</option>
+                  <option>Дом целиком + баня</option>
+                  <option>Дом целиком + купель</option>
+                  <option>Баня-бочка отдельно</option>
+                  <option>Пока присматриваюсь</option>
+                </select>
+              </label>
+              <label class="booking__field">
+                <span class="booking__label">Комментарий</span>
+                <input class="booking__input" id="bkComment" name="comment" type="text" placeholder="Количество гостей, вопросы">
+              </label>
+            </div>
+            <input class="booking__honeypot" id="bkFax" name="fax" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="booking__error" id="bkError" hidden></p>
+            <div class="booking__fail" id="bookingFail" hidden>
+              <h3 class="booking__fail-title">Заявка не отправилась</h3>
+              <p class="booking__fail-text" id="bkFailText"></p>
+              <a class="btn btn--primary btn--small" id="bkFailPhone" href="#">Позвонить</a>
+            </div>
+            <div class="booking__actions">
+              <button class="btn btn--primary" id="bkSubmit" type="submit">Отправить заявку</button>
+              <span class="booking__hint">Нажимая кнопку, вы соглашаетесь на обработку данных для оформления брони.</span>
+            </div>
+          </form>
+          <div class="booking__done" id="bookingDone" hidden>
+            <span class="booking__done-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            </span>
+            <h3 class="booking__done-title">Заявка <span class="booking__done-number" id="bkNumber">—</span> принята!</h3>
+            <p class="booking__done-text">Мы перезвоним вам для подтверждения. Сохраните номер: назовите его при звонке или при заезде — по нему мы сразу найдём вашу заявку.</p>
+            <a class="btn btn--outline btn--small" id="bkCallBtn" href="#">Позвонить сейчас</a>
+          </div>
         </div>
       </div>
     </section>

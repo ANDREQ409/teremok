@@ -839,6 +839,143 @@ section[id] {
   color: #f4d9b0;
 }
 
+/* ---------- Заявка онлайн ---------- */
+
+.booking {
+  max-width: 760px;
+  margin: 44px auto 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 34px 38px 38px;
+}
+
+.booking [hidden] {
+  display: none !important;
+}
+
+.booking__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.booking__field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.booking__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.booking__req {
+  color: var(--color-accent);
+}
+
+.booking__input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.booking__input:focus {
+  border-color: var(--color-primary);
+  background: #fff;
+}
+
+.booking__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.booking__error {
+  background: #fdeeee;
+  border: 1px solid #e5b5b5;
+  color: #8a2f2f;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.booking__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.booking__hint {
+  font-size: 13px;
+  color: var(--color-muted);
+  max-width: 340px;
+}
+
+.booking__done {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.booking__done-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e3efe7;
+  color: var(--color-primary);
+}
+
+.booking__done-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin: 16px 0 10px;
+}
+
+.booking__done-number {
+  color: var(--color-primary);
+}
+
+.booking__done-text {
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto 18px;
+}
+
+.booking__fail {
+  background: #fdeeee;
+  border: 1px solid #e5b5b5;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.booking__fail-title {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.booking__fail-text {
+  font-size: 15px;
+  color: #8a2f2f;
+  margin-bottom: 12px;
+}
+
 /* ---------- Контакты ---------- */
 
 .contacts-grid {
